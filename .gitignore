@@ -1,0 +1,48 @@
+# Root binary builds & executables
+/honeygo
+/honeygo-*
+/*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+
+# Test binaries & coverage outputs
+*.test
+*.out
+*.coverprofile
+coverage.txt
+
+# Databases & SQLite Journal/WAL files
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Log files
+*.log
+*.log.*
+logs/
+
+# Temporary, Cache, and Export files
+tmp/
+temp/
+*.tmp
+*.temp
+*.swp
+*~
+
+# Operating System & IDE artifacts
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# TLS / SSL Certificates and Keys
+certs/
+*.crt
+*.key
+*.pem

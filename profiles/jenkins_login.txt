@@ -1,0 +1,94 @@
+HTTP/1.1 200 OK
+Date: [CURRENT_DATE]
+X-Jenkins: 2.387.3
+X-Jenkins-Session: b98b8719
+Server: Jetty(9.4.43.v20210604)
+Content-Type: text/html;charset=utf-8
+Content-Length: [BODY_LEN]
+Connection: close
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign in [Jenkins]</title>
+  <style type="text/css">
+    body { background-color: #f8f9fa; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; }
+    .login-box { background: #fff; padding: 40px; border: 1px solid #ced4da; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); width: 320px; }
+    .logo { text-align: center; margin-bottom: 20px; }
+    .logo h2 { color: #333; margin: 0; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #495057; }
+    .form-group input { width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; }
+    .btn-login { width: 100%; padding: 10px; background: #007bff; color: #fff; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+    .btn-login:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+     <div class="logo">
+       <h2>Jenkins</h2>
+     </div>
+     <form action="/j_acegi_security_check" method="POST">
+       <div class="form-group">
+         <label for="j_username">Username</label>
+         <input type="text" id="j_username" name="j_username" placeholder="admin" required />
+       </div>
+       <div class="form-group">
+         <label for="j_password">Password</label>
+         <input type="password" id="j_password" name="j_password" required />
+       </div>
+       <button type="submit" class="btn-login">Sign in</button>
+     </form>
+  </div>
+</body>
+</html>
+
+=== POST ===
+HTTP/1.1 200 OK
+Date: [CURRENT_DATE]
+X-Jenkins: 2.387.3
+X-Jenkins-Session: b98b8719
+Server: Jetty(9.4.43.v20210604)
+Content-Type: text/html;charset=utf-8
+Content-Length: [BODY_LEN]
+Connection: close
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign in [Jenkins]</title>
+  <style type="text/css">
+    body { background-color: #f8f9fa; font-family: sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; }
+    .login-box { background: #fff; padding: 40px; border: 1px solid #ced4da; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); width: 320px; }
+    .logo { text-align: center; margin-bottom: 20px; }
+    .logo h2 { color: #333; margin: 0; }
+    .error-box { background: #f8d7da; color: #721c24; padding: 10px; border: 1px solid #f5c6cb; border-radius: 4px; margin-bottom: 15px; font-size: 0.9em; text-align: center; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #495057; }
+    .form-group input { width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; }
+    .btn-login { width: 100%; padding: 10px; background: #007bff; color: #fff; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+    .btn-login:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+     <div class="logo">
+       <h2>Jenkins</h2>
+     </div>
+     <div class="error-box">
+       Invalid username or password
+     </div>
+     <form action="/j_acegi_security_check" method="POST">
+       <div class="form-group">
+         <label for="j_username">Username</label>
+         <input type="text" id="j_username" name="j_username" placeholder="admin" required />
+       </div>
+       <div class="form-group">
+         <label for="j_password">Password</label>
+         <input type="password" id="j_password" name="j_password" required />
+       </div>
+       <button type="submit" class="btn-login">Sign in</button>
+     </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+=== PATH: /.env ===
+HTTP/1.1 200 OK
+Date: [CURRENT_DATE]
+Server: nginx/1.22.1
+Content-Type: text/plain; charset=utf-8
+Content-Length: [BODY_LEN]
+Connection: close
+
+APP_NAME=CloudProductionBackend
+APP_ENV=production
+APP_KEY=base64:dGVzdGtleTEyMzQ1Njc4OWFiY2RlZjEyMzQ1Njc4OTAxMjM0NTY=
+APP_DEBUG=false
+APP_URL=https://api.internal.cloud
+
+# AWS Cloud Infrastructure & Canary Storage Credentials
+aws_access_key_id = AKIATU7L4S6WULTSTDSN
+aws_secret_access_key = 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
+output = json
+region = us-east-2
+
+# AWS Environment Variable Aliases
+AWS_ACCESS_KEY_ID=AKIATU7L4S6WULTSTDSN
+AWS_SECRET_ACCESS_KEY=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
+AWS_DEFAULT_REGION=us-east-2
+AWS_REGION=us-east-2
+AWS_OUTPUT=json
+AWS_BUCKET=prod-cloud-assets-backup
+
+# Database Configuration
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=app_prod
+DB_USERNAME=db_admin
+DB_PASSWORD=SuperSecretProdPass2026!
+
+=== PATH: /.aws/credentials ===
+HTTP/1.1 200 OK
+Date: [CURRENT_DATE]
+Server: nginx/1.22.1
+Content-Type: text/plain; charset=utf-8
+Content-Length: [BODY_LEN]
+Connection: close
+
+[default]
+aws_access_key_id = AKIATU7L4S6WULTSTDSN
+aws_secret_access_key = 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
+output = json
+region = us-east-2
+
+[production]
+aws_access_key_id = AKIATU7L4S6WULTSTDSN
+aws_secret_access_key = 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
+output = json
+region = us-east-2
+
+=== PATH: /.aws/config ===
+HTTP/1.1 200 OK
+Date: [CURRENT_DATE]
+Server: nginx/1.22.1
+Content-Type: text/plain; charset=utf-8
+Content-Length: [BODY_LEN]
+Connection: close
+
+[default]
+region = us-east-2
+output = json
+
+[profile production]
+region = us-east-2
+output = json
+
+=== PATH: / ===
+HTTP/1.1 200 OK
+Date: [CURRENT_DATE]
+Server: nginx/1.22.1
+Content-Type: text/html; charset=utf-8
+Content-Length: [BODY_LEN]
+Connection: close
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Production Cloud API Gateway</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #f8fafc; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+    .card { background: #1e293b; padding: 2.5rem; border-radius: 8px; border: 1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-width: 480px; width: 100%; text-align: center; }
+    h1 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #38bdf8; }
+    p { color: #94a3b8; font-size: 0.9rem; line-height: 1.5; }
+    .status-pill { display: inline-block; background: #064e3b; color: #34d399; font-size: 0.75rem; font-weight: bold; padding: 4px 10px; border-radius: 9999px; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Production Cloud Gateway</h1>
+    <p>AWS Elastic Microservice Cluster & Data Ingestion API</p>
+    <div class="status-pill">&#9679; Service Status: HEALTHY (us-east-2)</div>
+  </div>
+</body>
+</html>

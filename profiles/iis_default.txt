@@ -1,0 +1,27 @@
+HTTP/1.1 200 OK
+Content-Length: [BODY_LEN]
+Content-Type: text/html
+Last-Modified: Wed, 18 Mar 2026 09:30:10 GMT
+Accept-Ranges: bytes
+Server: Microsoft-IIS/10.0
+Date: [CURRENT_DATE]
+Connection: close
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>IIS Windows Server</title>
+  <style type="text/css">
+    body { background-color: #0072C6; color: #fff; font-family: "Segoe UI", sans-serif; margin: 0; padding: 0; }
+    .header { font-size: 2.2em; padding: 40px 10%; background: #005A9E; font-weight: 300; }
+    .content { padding: 40px 10%; font-size: 1.1em; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="header">Windows Server</div>
+  <div class="content">
+    <h1>Internet Information Services</h1>
+    <p>Windows Server Internet Information Services (IIS) is a flexible, secure and manageable Web server for hosting anything on the Web.</p>
+  </div>
+</body>
+</html>

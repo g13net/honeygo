@@ -1,0 +1,26 @@
+HTTP/1.1 200 OK
+Date: [CURRENT_DATE]
+Server: Apache/2.4.54 (Debian)
+Last-Modified: Sat, 20 May 2026 14:15:30 GMT
+Accept-Ranges: bytes
+Content-Length: [BODY_LEN]
+Connection: close
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Apache2 Debian Default Page: It works</title>
+  <style type="text/css">
+    body { background-color: #f2f2f2; font-family: sans-serif; margin: 10% 20%; color: #333; }
+    h1 { color: #800000; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+    .container { background: #fff; padding: 30px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>It works!</h1>
+    <p>This is the default welcome page used to test the correct operation of the Apache2 server after installation on Debian systems.</p>
+  </div>
+</body>
+</html>
