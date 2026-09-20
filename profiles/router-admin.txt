@@ -1,0 +1,21 @@
+=== PATH: / ===
+HTTP/1.1 401 Unauthorized
+Date: [CURRENT_DATE]
+Server: RouterOS v6.48
+WWW-Authenticate: Basic realm="Router Gateway Configuration"
+Content-Type: text/html
+Content-Length: [BODY_LEN]
+Connection: close
+
+<html><head><title>401 Authorization Required</title></head><body><h1>401 Authorization Required</h1></body></html>
+
+=== PATH: /admin ===
+HTTP/1.1 401 Unauthorized
+Date: [CURRENT_DATE]
+Server: RouterOS v6.48
+WWW-Authenticate: Basic realm="Router Gateway Configuration"
+Content-Type: text/html
+Content-Length: [BODY_LEN]
+Connection: close
+
+<html><head><title>401 Authorization Required</title></head><body><h1>401 Authorization Required</h1></body></html>

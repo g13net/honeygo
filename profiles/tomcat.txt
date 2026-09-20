@@ -1,0 +1,30 @@
+=== PATH: / ===
+HTTP/1.1 200 OK
+Date: [CURRENT_DATE]
+Server: Apache-Coyote/1.1
+Content-Type: text/html;charset=UTF-8
+Content-Length: [BODY_LEN]
+Connection: close
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Apache Tomcat/9.0.58</title>
+</head>
+<body>
+    <h1>Apache Tomcat/9.0.58</h1>
+    <p>If you're seeing this, you've successfully installed Tomcat. Congratulations!</p>
+</body>
+</html>
+
+=== PATH: /manager/html ===
+HTTP/1.1 401 Unauthorized
+Date: [CURRENT_DATE]
+Server: Apache-Coyote/1.1
+WWW-Authenticate: Basic realm="Tomcat Manager Application"
+Content-Type: text/html;charset=utf-8
+Content-Length: [BODY_LEN]
+Connection: close
+
+<html><head><title>401 Unauthorized</title></head><body><h1>401 Unauthorized</h1><p>Access to Tomcat Manager requires valid credentials.</p></body></html>
