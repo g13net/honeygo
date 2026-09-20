@@ -49,7 +49,7 @@ func NewManager() *Manager {
 		if profile != "" {
 			if protocol == "web" {
 				if err := mgr.SetWebProfile(profile); err != nil {
-					return err
+					syslog.Warn(syslog.CategoryCSS, "Failed to set web profile '%s': %v (falling back to default)", profile, err)
 				}
 			} else if protocol == "modbus" {
 				mgr.SetModbusProfile(profile)
@@ -72,7 +72,7 @@ func NewManager() *Manager {
 			if cmd.Profile != "" {
 				if cmd.Protocol == "web" {
 					if err := mgr.SetWebProfile(cmd.Profile); err != nil {
-						return err
+						syslog.Warn(syslog.CategoryCSS, "Failed to set web profile '%s': %v (falling back to default)", cmd.Profile, err)
 					}
 				} else if cmd.Protocol == "modbus" {
 					mgr.SetModbusProfile(cmd.Profile)
@@ -293,7 +293,7 @@ func (m *Manager) StartService(protocol string, port int, isolated bool, ttl int
 	}
 	m.mu.Unlock()
 
-	if s.Protocol() != protocol {
+	if s.Protocol() != protocol && !(protocol == "web" && s.Protocol() == "https") {
 		return fmt.Errorf("port %d is already occupied by %s", port, s.Protocol())
 	}
 
@@ -322,6 +322,7 @@ func (m *Manager) StartService(protocol string, port int, isolated bool, ttl int
 	go func() {
 		if err := s.Start(m.ctx); err != nil {
 			m.log("[red]Error starting service %s on port %d: %v[white]", protocol, port, err)
+			syslog.Error(syslog.CategoryService, "Error starting service %s on port %d: %v", protocol, port, err)
 		}
 	}()
 	return nil
@@ -386,7 +387,14 @@ func (m *Manager) GetAvailableProtocols() []string {
 	return []string{"ssh", "telnet", "web", "vnc", "modbus", "s7comm", "css"}
 }
 
+func (m *Manager) GetAvailableWebProfiles() []string {
+	return web.ListAvailableProfiles()
+}
+
 func (m *Manager) SetWebProfile(profile string) error {
+	if strings.TrimSpace(profile) == "" {
+		profile = "apache"
+	}
 	if err := web.ValidateProfile(profile); err != nil {
 		return err
 	}
@@ -394,7 +402,7 @@ func (m *Manager) SetWebProfile(profile string) error {
 	defer m.mu.Unlock()
 	m.DefaultWebProfile = profile
 	for _, s := range m.services {
-		if s.Protocol() == "web" {
+		if s.Protocol() == "web" || s.Protocol() == "https" {
 			if p, ok := s.(interface{ SetProfile(string) error }); ok {
 				_ = p.SetProfile(profile)
 			} else if p, ok := s.(interface{ SetProfile(string) }); ok {

@@ -233,7 +233,7 @@ Strict Unix syntax is enforced: single dashes are reserved for single-character 
 | | `--telnet-port <port>` | `2323` | Telnet honeypot listening port |
 | | `--web` | `false` | Enable Web / HTTP honeypot |
 | | `--web-port <port>` | `8080` | Web honeypot listening port |
-| | `--web-profile <prof>` | `apache` | Deception profile: `apache`, `iis`, `cisco`, `aws-canary`, `pizzashop`, or custom template path |
+| | `--web-profile <prof>` | `apache` | Deception profile: `apache`, `iis`, `cisco`, `aws-canary`, `pizzashop`, `nginx`, `tomcat`, `login-portal`, `router-admin`, or custom template path |
 | | `--web-ssl` | `false` | Enable SSL/TLS encryption on Web honeypot (requires `./certs/`) |
 | | `--vnc` | `false` | Enable VNC honeypot |
 | | `--vnc-port <port>` | `5900` | VNC honeypot listening port |
@@ -548,8 +548,15 @@ Control console clutter without losing audit traceability:
 | `iis` | Microsoft Internet Information Services 10.0 | Emulates standard Windows Server IIS welcome page |
 | `cisco` | Cisco Small Business / Catalyst Switch | Emulates network device authentication page; traps router exploit scans |
 | `aws-canary` | AWS Cloud Infrastructure & EC2 Metadata | Emulates internal AWS metadata services and Canary token honey-tokens |
-| `pizzashop` | 1990s Pizza Restaurant with AI/LLM Discovery | Retro marketing site with active `/.env`, `/llms.txt`, and `/llms-full.txt` scraper traps |
-| `<custom.txt>` | Custom Multi-Path Template File | Path to custom text file in `profiles/` or filesystem (e.g. `profiles/generic_form.txt`) |
+| `pizzashop` | 1990s Pizza Restaurant with AI/LLM Discovery | Retro marketing site with active `/.env`, `/llms.txt`, `/llms-full.txt`, and `/v1/models` scraper traps |
+| `nginx` | Nginx 1.18 HTTP Server on Ubuntu Linux | Emulates standard Ubuntu Nginx welcome page |
+| `tomcat` | Apache Tomcat 9.0 Application Server | Emulates Tomcat landing page and `/manager/html` 401 Basic auth trap |
+| `login-portal` | Corporate Single Sign-On Employee Portal | Emulates enterprise SSO login interface and harvests form submissions |
+| `router-admin` | RouterOS / Edge Gateway Administration | Emulates network router management interface with 401 Basic auth trap |
+| `<custom.txt>` | Custom Multi-Path Template File | Path to custom text file in `profiles/` or filesystem (e.g. `profiles/generic_form.txt`, `profiles/jenkins_login.txt`) |
+
+> [!TIP]
+> For the complete specification on creating custom multi-endpoint web profiles, route directives (`=== PATH:`), method splitters (`=== POST ===`), and dynamic placeholders (`[BODY_LEN]`, `[CURRENT_DATE]`), see [PROFILES.md](PROFILES.md).
 
 ### Modbus PLC Profiles (`--modbus-profile <profile>`)
 
@@ -581,6 +588,17 @@ Honeygo uses a zero-configuration convention for SSL/TLS certificates:
    ```bash
    ./honeygo --css-url https://css.corp:8090 -k --css-token "MyToken"
    ```
+
+---
+
+## Project Documentation
+
+| Document | Purpose |
+|---|---|
+| [`SOURCEMAP.md`](file:///home/sarphim/honeygo/SOURCEMAP.md) | Comprehensive architecture guide mapping every source code file, package, and component |
+| [`GEMINI.md`](file:///home/sarphim/honeygo/GEMINI.md) | Development standards, RFC compliance rules, verification mandates, and change controls |
+| [`Makefile`](file:///home/sarphim/honeygo/Makefile) | Automated build rules for guest container images (Podman & Docker) |
+
 ---
 
 ## License

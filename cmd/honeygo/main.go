@@ -23,6 +23,8 @@ import (
 	"log"
 	"os"
 	"strings"
+
+	"golang.org/x/term"
 )
 
 type Config struct {
@@ -258,6 +260,15 @@ func main() {
 		css.SetSensorSkipVerify(true)
 	}
 
+	mgr := manager.NewManager()
+	mgr.SetSSL(cfg.SSLEnabled)
+	if cfg.WebProfile != "" {
+		if err := mgr.SetWebProfile(cfg.WebProfile); err != nil {
+			log.Fatalf("Invalid --web-profile: %v", err)
+		}
+	}
+	mgr.DefaultModbusProfile = cfg.ModbusProfile
+
 	if cfg.CSSURL != "" {
 		tokenAuth := cfg.CSSToken
 		if err := css.ConnectSensorWithVerify(cfg.CSSURL, tokenAuth, cfg.SensorID, cfg.SensorTTL, cfg.CSSSkipVerify); err != nil {
@@ -282,15 +293,6 @@ func main() {
 
 	// Initialize Reconnaissance Engine & Command/Canary Extraction Hooks
 	recon.Init(context.Background())
-
-	mgr := manager.NewManager()
-	mgr.SetSSL(cfg.SSLEnabled)
-	if cfg.WebProfile != "" {
-		if err := mgr.SetWebProfile(cfg.WebProfile); err != nil {
-			log.Fatalf("Invalid --web-profile: %v", err)
-		}
-	}
-	mgr.DefaultModbusProfile = cfg.ModbusProfile
 
 	// Start Web Analytics / CSS Server if requested via --analytics or --css-server
 	srvPort := cfg.AnalyticsPort
@@ -353,8 +355,7 @@ func main() {
 	shell := ui.NewShell(mgr)
 
 	// If NOT a TTY, ensure we keep logging to stdout
-	fi, _ := os.Stdin.Stat()
-	if (fi.Mode() & os.ModeCharDevice) == 0 {
+	if !term.IsTerminal(int(os.Stdin.Fd())) {
 		infoStdout := syslog.NewInfoWriter(os.Stdout)
 		mgr.SetLogger(infoStdout)
 		css.SetLogger(os.Stdout)

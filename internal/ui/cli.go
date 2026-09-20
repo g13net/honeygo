@@ -17,6 +17,7 @@ import (
 
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
+	"golang.org/x/term"
 )
 
 type Shell struct {
@@ -125,9 +126,8 @@ func NewShell(m *manager.Manager) *Shell {
 }
 
 func (s *Shell) Run() error {
-	// Check if stdin is a TTY
-	fi, err := os.Stdin.Stat()
-	if err == nil && (fi.Mode()&os.ModeCharDevice) == 0 {
+	// Check if stdin is a real TTY terminal
+	if !term.IsTerminal(int(os.Stdin.Fd())) {
 		// Not a TTY, just wait for context or exit
 		<-s.manager.Ctx().Done()
 		return nil
@@ -257,7 +257,11 @@ func (s *Shell) handleCommand(input string) bool {
 	case "/webprofile":
 		if len(parts) < 2 {
 			fmt.Fprintf(s.logs, "[yellow]Current active web profile: %s[white]\n", s.manager.DefaultWebProfile)
-			fmt.Fprintf(s.logs, "[yellow]Syntax: /webprofile <profile>[white]\n")
+			fmt.Fprintf(s.logs, "[yellow]Available profiles:[white]\n")
+			for _, p := range s.manager.GetAvailableWebProfiles() {
+				fmt.Fprintf(s.logs, "  - %s\n", p)
+			}
+			fmt.Fprintf(s.logs, "[yellow]Syntax: /webprofile <profile|path>[white]\n")
 			break
 		}
 		profile := strings.Join(parts[1:], " ")

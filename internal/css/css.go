@@ -744,7 +744,11 @@ func ConnectSensorWithVerify(cssURL, token, sensorID string, checkinTTL int, ski
 
 	if len(respData.Commands) > 0 && ExecuteSensorRemoteCommandFunc != nil {
 		for _, cmd := range respData.Commands {
-			_ = ExecuteSensorRemoteCommandFunc(cmd)
+			if err := ExecuteSensorRemoteCommandFunc(cmd); err != nil {
+				syslog.Error(syslog.CategoryCSS, "Failed to execute remote sensor command %s on %s:%d: %v", cmd.Action, cmd.Protocol, cmd.Port, err)
+			} else {
+				syslog.Info(syslog.CategoryCSS, "Executed remote sensor command: %s %s:%d", cmd.Action, cmd.Protocol, cmd.Port)
+			}
 		}
 	}
 
@@ -912,7 +916,11 @@ func SendHeartbeatToCSS() error {
 	if err := json.NewDecoder(resp.Body).Decode(&respData); err == nil {
 		if len(respData.Commands) > 0 && ExecuteSensorRemoteCommandFunc != nil {
 			for _, cmd := range respData.Commands {
-				_ = ExecuteSensorRemoteCommandFunc(cmd)
+				if err := ExecuteSensorRemoteCommandFunc(cmd); err != nil {
+					syslog.Error(syslog.CategoryCSS, "Failed to execute remote sensor command %s on %s:%d: %v", cmd.Action, cmd.Protocol, cmd.Port, err)
+				} else {
+					syslog.Info(syslog.CategoryCSS, "Executed remote sensor command: %s %s:%d", cmd.Action, cmd.Protocol, cmd.Port)
+				}
 			}
 		}
 	}
@@ -1412,6 +1420,10 @@ func ControlSensorService(sensorID string, action string, protocol string, port 
 		default:
 			port = 8000
 		}
+	}
+
+	if protocol == "web" && strings.TrimSpace(profile) == "" {
+		profile = "apache"
 	}
 
 	// 1. Enforce isolation validation: If isolated requested, check if sensor has isolation enabled

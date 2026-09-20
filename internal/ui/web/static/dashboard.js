@@ -4248,7 +4248,7 @@ let currentManageSensorId = null;
 const AVAILABLE_HONEYPOT_SERVICES = [
     { protocol: 'ssh', name: 'SSH Honeypot', defaultPort: 2222, icon: '🔒', profiles: [] },
     { protocol: 'telnet', name: 'Telnet Honeypot', defaultPort: 2323, icon: '📟', profiles: [] },
-    { protocol: 'web', name: 'HTTP Web Honeypot', defaultPort: 8080, icon: '🌐', profiles: ['apache', 'pizzashop', 'aws-canary', 'iis', 'cisco', 'nginx', 'tomcat', 'login-portal', 'router-admin'] },
+    { protocol: 'web', name: 'HTTP Web Honeypot', defaultPort: 8080, icon: '🌐', profiles: ['apache', 'pizzashop', 'aws-canary', 'iis', 'cisco', 'nginx', 'tomcat', 'login-portal', 'router-admin', 'generic_form', 'jenkins_login'] },
     { protocol: 'vnc', name: 'VNC RFB Honeypot', defaultPort: 5900, icon: '🖥️', profiles: [] },
     { protocol: 'modbus', name: 'Modbus TCP ICS/SCADA', defaultPort: 502, icon: '⚡', profiles: ['schneider', 'common-q', 'triconex'], requiresIsolation: true },
     { protocol: 's7comm', name: 'Siemens S7comm PLC', defaultPort: 102, icon: '🏭', profiles: [], requiresIsolation: true }
@@ -4325,8 +4325,10 @@ async function openManageSensorModal(sensorId) {
     if (svcsList) {
         const runningSvcs = sensor.services || [];
         svcsList.innerHTML = AVAILABLE_HONEYPOT_SERVICES.map(svcDef => {
-            const activeInstance = runningSvcs.find(s => (s.protocol || '').toLowerCase() === svcDef.protocol);
-            const isRunning = !!activeInstance;
+            const runningInstance = runningSvcs.find(s => (s.protocol || '').toLowerCase() === svcDef.protocol && s.status === 'Running');
+            const anyInstance = runningSvcs.find(s => (s.protocol || '').toLowerCase() === svcDef.protocol);
+            const isRunning = !!runningInstance;
+            const activeInstance = runningInstance || anyInstance;
             const currentPort = activeInstance ? activeInstance.port : svcDef.defaultPort;
             const isServiceIsolated = activeInstance ? !!activeInstance.isolated : false;
 
