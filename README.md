@@ -588,17 +588,6 @@ Honeygo uses a zero-configuration convention for SSL/TLS certificates:
    ```bash
    ./honeygo --css-url https://css.corp:8090 -k --css-token "MyToken"
    ```
-
----
-
-## Project Documentation
-
-| Document | Purpose |
-|---|---|
-| [`SOURCEMAP.md`](file:///home/sarphim/honeygo/SOURCEMAP.md) | Comprehensive architecture guide mapping every source code file, package, and component |
-| [`GEMINI.md`](file:///home/sarphim/honeygo/GEMINI.md) | Development standards, RFC compliance rules, verification mandates, and change controls |
-| [`Makefile`](file:///home/sarphim/honeygo/Makefile) | Automated build rules for guest container images (Podman & Docker) |
-
 ---
 
 ## License
